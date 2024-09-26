@@ -5,6 +5,12 @@
 
         <a class="navbar-brand ms-5" href="#">کافی شاپ من</a>
 
+        {% if user.is_authenticated %}
+            <div class="w-100 text-start">
+                <a href="#" type="button" class="btn btn-outline-light px-4">برو به سایت</a>
+            </div>
+        {% endif %}
+
     </nav>
     <!-- Navbar -->
 </header>
