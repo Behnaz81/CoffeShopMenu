@@ -1,0 +1,35 @@
+{% extends 'core/base.html' %}
+
+<!-- Title -->
+{% block title %}ورود به پنل ادمین{% endblock %}
+
+<!-- Content -->
+{% block content %}
+    <form action="." method="post" class="w-25 bg-light mx-auto mt-5 py-3 rounded">
+        {% csrf_token %}
+
+        <p class="fs-2 titr text-center">ورود به پنل ادمین</p>
+
+        <div class="mt-4">
+            {{ form.username }} 
+        </div>
+
+        <div class="mt-2">
+            {{ form.password }}
+        </div>
+
+        {% if form.errors or form.non_field_errors %}
+            <div>
+                {% for field in form %}
+                    {{ field.errors }}
+                {% endfor %}
+
+                {{ form.non_field_errors }}
+
+            </div>
+        {% endif %}
+
+        <button class="btn btn-outline-dark mx-auto d-block mt-3 w-25" type="submit">ورود</button>
+
+    </form>
+{% endblock %}
