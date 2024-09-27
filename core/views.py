@@ -11,10 +11,5 @@ class CustomLoginView(LoginView):
     form_class = LoginForm
     
     def get_success_url(self):
-        return reverse_lazy('core:dashboard')
+        return reverse_lazy('products:dashboard')
     
-
-class Dashboard(View):
-    
-    def get(self,request):
-        return render(request, 'core/dashboard.html')
