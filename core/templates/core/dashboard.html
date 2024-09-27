@@ -5,8 +5,11 @@
 
 <!-- Content -->
 {% block content %}
+
+    <!-- Category form -->
     <form class="bg-light rounded w-25 py-3" method="POST" action="{% url 'products:dashboard' %}" novalidate>
         {% csrf_token %}
+        <p class="fs-4 titr text-center">ایجاد دسته‌بندی جدید</p>
         <div class="w-75 mx-auto mb-3">
             {{form.name.label}}
             {{form.name}}
@@ -18,4 +21,30 @@
         </div>
         <button type="submit" class="btn btn-outline-dark mx-auto d-block w-50">ذخیره</button>
     </form>
+    <!-- Category form -->
+
+    <!-- Category list -->
+     <div class="bg-light w-25 rounded p-3 mt-3">
+        <p class="fs-4 titr text-center">دسته بندی‌ها</p>
+        <table class="table text-center">
+            <thead>
+              <tr>
+                <th scope="col">عنوان</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for category in categories %}
+                    <tr>
+                        <td>{{ category.name }}</td>
+                        <td>
+                            <a href="#" class="btn btn-danger">حذف</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+          </table>
+     </div>
+     <!-- Category list -->
+
 {% endblock %}
