@@ -7,11 +7,21 @@ from products.forms import CategoryForm
 class CreateCategory(View):
     def get(self, request):
         form = CategoryForm()
-        return render(request, 'core/dashboard.html', {'form': form})
+        categories = Category.objects.all()
+        context = {
+            'form': form,
+            'categories': categories,
+        }
+        return render(request, 'core/dashboard.html', context)
     
     def post(self, request):
         form = CategoryForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect('products:dashboard')
-        return render(request, 'core/dashboard.html', {'form': form})
+        categories = Category.objects.all()
+        context = {
+            'form': form,
+            'categories': categories,
+        }
+        return render(request, 'core/dashboard.html', context)
