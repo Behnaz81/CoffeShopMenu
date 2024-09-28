@@ -25,7 +25,7 @@
                             </div>
                         {% endif %}
                         <!-- errors -->
-                         
+
                     </div>
                     <button type="submit" name="create" value="category" class="btn btn-outline-dark mx-auto d-block w-50">ذخیره</button>
                 </form>
@@ -68,31 +68,76 @@
         </div>
     </div>
 
-    <!-- Category list -->
-     <div class="bg-light w-25 rounded p-3 mt-3">
-        <p class="fs-4 titr text-center">دسته بندی‌ها</p>
-        <table class="table text-center">
-            <thead>
-              <tr>
-                <th scope="col">عنوان</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-                {% for category in categories %}
-                    <tr>
-                        <td>{{ category.name }}</td>
-                        <td>
-                            <form method="post" action="{% url 'products:delete-cat' category.id %}">
-                                {% csrf_token %}
-                                <button type="submit" class="btn btn-danger">حذف</button>
-                            </form>
-                        </td>
+    <div class="row">
+        <!-- Category list -->
+         <div class="col-3">
+             <div class="bg-light rounded p-3 mt-3">
+                <p class="fs-4 titr text-center">دسته بندی‌ها</p>
+                <table class="table text-center">
+                    <thead>
+                      <tr>
+                        <th scope="col">عنوان</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        {% for category in categories %}
+                            <tr>
+                                <td>{{ category.name }}</td>
+                                <td>
+                                    <form method="post" action="{% url 'products:delete-cat' category.id %}">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-danger">حذف</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                  </table>
+             </div>
+         </div>
+         <!-- Category list -->
+
+        <!-- Product list -->
+        <div class="col-9">
+            <div class="bg-light rounded p-3 mt-3">
+                <p class="fs-4 titr text-center">محصولات</p>
+                <table class="table text-center">
+                    <thead>
+                      <tr>
+                        <th scope="col">تصویر</th>
+                        <th scope="col">نام</th>
+                        <th scope="col">قیمت</th>
+                        <th scope="col">دسته‌بندی</th>
+                        <th scope="col">عملیات</th>
                     </tr>
-                {% endfor %}
-            </tbody>
-          </table>
-     </div>
-     <!-- Category list -->
+                    </thead>
+                    <tbody>
+                        {% for product in products %}
+                            <tr>
+                                <td style="width: 5%;">
+                                    <img class="img-fluid" src="{{ product.image.url }}" alt="{{ product.name }}">
+                                </td>
+                                <td>{{ product.name }}</td>
+                                <td>{{ product.price }}</td>
+                                <td>{{ product.category }}</td>
+                                <td>
+                                    <form method="post" action="" class="d-inline">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-danger">حذف</button>
+                                    </form>
+                                    <form method="post" action="" class="d-inline">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-primary">ویرایش</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                  </table>
+             </div>
+             <!-- Product list -->
+         </div>
+    </div>
 
 {% endblock %}
