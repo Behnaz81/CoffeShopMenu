@@ -4,7 +4,7 @@ from products.models import Category,Product
 from products.forms import CategoryForm, ProductForm
 
 
-class CreateCategory(View):
+class CreateCategoryProduct(View):
     def get(self, request, *args, **kwargs):
         category_form = CategoryForm()
         product_form = ProductForm()
@@ -50,3 +50,11 @@ class DeleteCategory(View):
         category = get_object_or_404(Category, id=cat_id)
         category.delete()
         return redirect('products:dashboard')
+
+
+class DeleteProduct(View):
+    def post(self, request, pro_id):
+        product = get_object_or_404(Product, id=pro_id)
+        product.delete()
+        return redirect('products:dashboard')
+
