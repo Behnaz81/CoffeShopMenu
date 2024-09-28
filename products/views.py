@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
-from products.models import Category
+from products.models import Category,Product
 from products.forms import CategoryForm, ProductForm
 
 
@@ -9,38 +9,40 @@ class CreateCategory(View):
         category_form = CategoryForm()
         product_form = ProductForm()
         categories = Category.objects.all()
+        products = Product.objects.all()
         context = {
             'category_form': category_form,
             'categories': categories,
             'product_form': product_form,
+            'products': products,
         }
         return render(request, 'core/dashboard.html', context)
     
     def post(self, request):
+        category_form = CategoryForm()
+        product_form = ProductForm()
+
         if request.POST.get('create') == 'category':
-            form = CategoryForm(request.POST)
-            if form.is_valid():
-                form.save()
+            category_form = CategoryForm(request.POST)
+            if category_form.is_valid():
+                category_form.save()
                 return redirect('products:dashboard')
-            categories = Category.objects.all()
-            context = {
-                'form': form,
-                'categories': categories,
-            }
-            return render(request, 'core/dashboard.html', context)
 
         elif request.POST.get('create') == 'product':
-            print('create product')
-            form = ProductForm(request.POST, request.FILES)
-            if form.is_valid():
-                form.save()
+            product_form = ProductForm(request.POST, request.FILES)
+            if product_form.is_valid():
+                product_form.save()
                 return redirect('products:dashboard')
-            categories = Category.objects.all()
-            context = {
-                'form': form,
-                'categories': categories,
-            }
-            return render(request, 'core/dashboard.html', context)
+            
+        categories = Category.objects.all()
+        products = Product.objects.all()
+        context = {
+            'category_form': category_form,
+            'categories': categories,
+            'product_form': product_form,
+            'products': products,
+        }
+        return render(request, 'core/dashboard.html', context)
 
 
 class DeleteCategory(View):
