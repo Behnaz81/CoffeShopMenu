@@ -38,7 +38,10 @@
                     <tr>
                         <td>{{ category.name }}</td>
                         <td>
-                            <a href="#" class="btn btn-danger">حذف</a>
+                            <form method="post" action="{% url 'products:delete-cat' category.id %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger">حذف</button>
+                            </form>
                         </td>
                     </tr>
                 {% endfor %}
