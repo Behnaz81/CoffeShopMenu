@@ -122,7 +122,7 @@
                                 <td>{{ product.price }}</td>
                                 <td>{{ product.category }}</td>
                                 <td>
-                                    <form method="post" action="" class="d-inline">
+                                    <form method="post" action="{% url 'products:delete-product' product.id %}" class="d-inline">
                                         {% csrf_token %}
                                         <button type="submit" class="btn btn-danger">حذف</button>
                                     </form>
