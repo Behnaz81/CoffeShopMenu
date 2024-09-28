@@ -17,11 +17,15 @@
                     <div class="w-75 mx-auto mb-3">
                         {{category_form.name.label}}
                         {{category_form.name}}
+
+                        <!-- errors -->
                         {% if category_form.name.errors %}
                             <div class="alert alert-danger mt-3 text-decoration-none pb-0 px-0">
                                 {{category_form.name.errors}}
                             </div>
                         {% endif %}
+                        <!-- errors -->
+                         
                     </div>
                     <button type="submit" name="create" value="category" class="btn btn-outline-dark mx-auto d-block w-50">ذخیره</button>
                 </form>
@@ -42,13 +46,19 @@
                         {{product_form.category}}
                         {{product_form.image.label}}
                         {{product_form.image}}
-                        <div class="alert alert-danger mt-3 text-decoration-none pb-0 px-0">
-                            {% for field in product_form %}
-                                {% if field.errors %}
-                                        {{field.errors}}
-                                {% endif %}
-                            {% endfor %}
-                        </div>  
+
+                        <!-- errors -->
+                        {% if form.errors %}
+                            <div class="alert alert-danger mt-3 text-decoration-none pb-0 px-0">
+                                {% for field in product_form %}
+                                    {% if field.errors %}
+                                            {{field.errors}}
+                                    {% endif %}
+                                {% endfor %}
+                            </div>  
+                        {% endif %}
+                        <!-- errors -->
+
                     </div>
                     <button type="submit" name="create" value="product" class="btn btn-outline-dark mx-auto d-block w-50">ذخیره</button>
                 </form>
