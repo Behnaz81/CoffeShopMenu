@@ -36,7 +36,7 @@
             <div class="col-9">
                 <form class="bg-light rounded py-3" method="POST" action="" novalidate enctype="multipart/form-data">
                     {% csrf_token %}
-                    <p class="fs-4 titr text-center">ایجاد محصول جدید</p>
+                    <p class="fs-4 titr text-center">{% if update %} تغییرات محصول {% else %} ایجاد محصول جدید {% endif %}</p>
                     <div class="w-75 mx-auto mb-3">
                         {{product_form.name.label}}
                         {{product_form.name}}
@@ -48,7 +48,7 @@
                         {{product_form.image}}
 
                         <!-- errors -->
-                        {% if form.errors %}
+                        {% if product_form.errors %}
                             <div class="alert alert-danger mt-3 text-decoration-none pb-0 px-0">
                                 {% for field in product_form %}
                                     {% if field.errors %}
@@ -60,7 +60,9 @@
                         <!-- errors -->
 
                     </div>
-                    <button type="submit" name="create" value="product" class="btn btn-outline-dark mx-auto d-block w-50">ذخیره</button>
+                    <button type="submit" name="create" value="product" class="btn btn-outline-dark mx-auto d-block w-50">
+                        {% if update%}ذخیره تغیرات {% else %}ذخیره {% endif %}
+                    </button>
                 </form>
             </div>
             <!-- Product form -->
@@ -126,10 +128,9 @@
                                         {% csrf_token %}
                                         <button type="submit" class="btn btn-danger">حذف</button>
                                     </form>
-                                    <form method="post" action="" class="d-inline">
-                                        {% csrf_token %}
-                                        <button type="submit" class="btn btn-primary">ویرایش</button>
-                                    </form>
+                                    
+                                    <a href="{% url 'products:update-product' product.id %}" class="btn btn-primary">ویرایش</a>
+                                    
                                 </td>
                             </tr>
                         {% endfor %}
