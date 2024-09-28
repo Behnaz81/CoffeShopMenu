@@ -15,6 +15,7 @@ class CreateCategoryProduct(View):
             'categories': categories,
             'product_form': product_form,
             'products': products,
+            'update': False,
         }
         return render(request, 'core/dashboard.html', context)
     
@@ -41,6 +42,7 @@ class CreateCategoryProduct(View):
             'categories': categories,
             'product_form': product_form,
             'products': products,
+            'update': False,
         }
         return render(request, 'core/dashboard.html', context)
 
@@ -57,4 +59,49 @@ class DeleteProduct(View):
         product = get_object_or_404(Product, id=pro_id)
         product.delete()
         return redirect('products:dashboard')
+    
+
+class UpdateProduct(View):
+    def get(self, request, pro_id):
+        product = get_object_or_404(Product, id=pro_id)
+        product_form = ProductForm(instance=product)
+        category_form = CategoryForm()
+        categories = Category.objects.all()
+        products = Product.objects.all()
+
+        context = {
+            'product_form': product_form,
+            'category_form': category_form,
+            'categories': categories,
+            'products': products,
+            'update': True
+        }
+
+        return render(request, 'core/dashboard.html', context)
+
+
+    def post(self, request, pro_id):
+        product = get_object_or_404(Product, id=pro_id)
+        product_form = ProductForm(request.POST, request.FILES, instance=product)
+
+        if product_form.is_valid():
+            product_form.save()
+            return redirect('products:dashboard')
+        
+        category_form = CategoryForm()
+        categories = Category.objects.all()
+        products = Product.objects.all()
+        
+        context = {
+            'product_form': product_form,
+            'category_form': category_form,
+            'categories': categories,
+            'products': products,
+            'update': True
+        }
+
+        return render(request, 'core/dashboard.html', context)
+
+
+
 
