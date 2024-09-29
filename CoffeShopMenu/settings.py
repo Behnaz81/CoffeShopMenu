@@ -143,3 +143,5 @@ LOGIN_URL = '/login/'
 MEDIA_DIR = BASE_DIR / 'media'
 MEDIA_ROOT = MEDIA_DIR
 MEDIA_URL = '/media/'
+
+LOGOUT_REDIRECT_URL = '/' 
