@@ -41,5 +41,5 @@ Navigate to `http://127.0.0.1:8000/login/` in your web browser and log in with t
 If you would like to contribute to this project, please fork the repository and submit a pull request.
 
 ## License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the LICENSE file for details.
 
