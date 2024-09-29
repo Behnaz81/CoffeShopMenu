@@ -1,0 +1,46 @@
+{% extends 'core/base.html' %}
+{% load humanize %}
+
+<!-- Title -->
+{% block title %}منو{% endblock %}
+
+<!-- Content -->
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2 col-3 bg-light position-sticky sticky-top" style="top: 50px; height: calc(100vh - 30px);">
+                {% for category in categories %}
+                    <div class="d-block mt-3 text-center">
+                        <a href="#{{category.name}}" class="text-dark text-decoration-none">
+                            {{category.name}}
+                        </a>
+                        <hr>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <div class="col-md-10 col-9">
+                
+                        {% for category in categories %}
+                            <h4 class="text-white text-center titr fs-2 mt-3" id="{{category.name}}">{{category.name}}</h4>
+                            <div class="row text-center">
+                            {% for product in products %}
+                                {% if product.category == category %}
+                                <div class="col-md-4 col-12 mt-3">
+                                <div class="card">
+                                    <img src="{{product.image.url}}" class="card-img-top img-fluid object-fit-contain" style="height: 200px;" alt="{{product.name}}">
+                                    <div class="card-body">
+                                    <h5 class="card-title text-center">{{product.name}}</h5>
+                                    <p class="text-center">{{product.price|intcomma}} تومان<p>
+                                    </div>
+                                </div>
+                                </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+
+                        {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

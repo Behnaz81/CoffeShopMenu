@@ -16,6 +16,7 @@ class CreateCategoryProduct(View):
             'product_form': product_form,
             'products': products,
             'update': False,
+            'index': False,
         }
         return render(request, 'core/dashboard.html', context)
     
@@ -43,6 +44,7 @@ class CreateCategoryProduct(View):
             'product_form': product_form,
             'products': products,
             'update': False,
+            'index': False,
         }
         return render(request, 'core/dashboard.html', context)
 
@@ -74,7 +76,8 @@ class UpdateProduct(View):
             'category_form': category_form,
             'categories': categories,
             'products': products,
-            'update': True
+            'update': True,
+            'index': False,
         }
 
         return render(request, 'core/dashboard.html', context)
@@ -103,5 +106,16 @@ class UpdateProduct(View):
         return render(request, 'core/dashboard.html', context)
 
 
+class MainPage(View):
 
+    def get(self, request):
+        categories = Category.objects.all()
+        products = Product.objects.all()
+        context = {
+            'categories': categories,
+            'products': products,
+            'index': True,
+        }
+
+        return render(request, 'products/index.html', context)
 
