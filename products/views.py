@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
+from django.db.models import Q 
 from products.models import Category,Product
 from products.forms import CategoryForm, ProductForm
 
@@ -9,7 +10,16 @@ class CreateCategoryProduct(View):
         category_form = CategoryForm()
         product_form = ProductForm()
         categories = Category.objects.all()
-        products = Product.objects.all()
+
+        query = self.request.GET.get('q')
+
+        if query:
+             products = Product.objects.filter(
+                Q(name__icontains=query) | Q(category__name__icontains=query)
+            )
+        else:
+            products =Product.objects.all()
+
         context = {
             'category_form': category_form,
             'categories': categories,
