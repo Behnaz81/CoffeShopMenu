@@ -119,6 +119,10 @@
   <!-- Product list -->
   <div class="col-12 col-md-9">
     <div class="bg-light rounded p-3 mt-3">
+        <form method="GET" action="{% url 'products:dashboard' %}" class="mb-3 d-flex">
+            <input type="text" name="q" class="form-control me-2" placeholder="جستجو محصول یا دسته‌بندی..." value="{{ request.GET.q }}">
+            <button class="btn btn-outline-secondary" type="submit">جستجو</button>
+          </form>
       <p class="fs-4 titr text-center">محصولات</p>
       <div class="table-responsive">
         <table class="table text-center">
